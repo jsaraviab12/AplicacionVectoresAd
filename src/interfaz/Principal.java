@@ -6,6 +6,8 @@
 
 package interfaz;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jsaravia1
@@ -54,8 +56,16 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos iniciales"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         jLabel2.setText("Longitud: ");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        txtLongitud.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
+        txtLongitud.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLongitudKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtLongitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 70, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 170, 110));
@@ -63,20 +73,32 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        cmdCrear.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
+        cmdCrear.setForeground(new java.awt.Color(0, 102, 0));
         cmdCrear.setText("Crear");
+        cmdCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCrearActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
 
+        cmdLlenarManual.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdLlenarManual.setText("Llenar Manual");
         jPanel3.add(cmdLlenarManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
 
+        cmdLlenarAutomatico.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdLlenarAutomatico.setText("Llenar Automatico");
-        jPanel3.add(cmdLlenarAutomatico, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+        jPanel3.add(cmdLlenarAutomatico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, -1));
 
+        cmdMostrar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdMostrar.setText("Mostrar");
-        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, -1));
+        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 120, -1));
 
+        cmdBorrar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
+        cmdBorrar.setForeground(new java.awt.Color(102, 0, 0));
         cmdBorrar.setText("Borrar");
-        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, -1));
+        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 120, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 180));
 
@@ -84,6 +106,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtResultado.setColumns(20);
+        txtResultado.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         txtResultado.setRows(5);
         jScrollPane1.setViewportView(txtResultado);
 
@@ -104,6 +127,28 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cmdCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearActionPerformed
+        if (txtLongitud.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Digite la longitud","Error",JOptionPane.ERROR_MESSAGE);
+            txtLongitud.requestFocusInWindow();
+        }else if (txtLongitud.getText().trim().equals("0")){
+           JOptionPane.showMessageDialog(this, " La longitud no puede ser 0","Error",JOptionPane.ERROR_MESSAGE); 
+            txtLongitud.requestFocusInWindow();
+             txtLongitud.selectAll();
+        }
+    }//GEN-LAST:event_cmdCrearActionPerformed
+
+    private void txtLongitudKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLongitudKeyTyped
+       char c=evt.getKeyChar();
+       if(!Character.isDigit(c)){
+          if(!Character.isDigit(evt.getKeyChar())){ 
+              getToolkit().beep(); 
+               
+              evt.consume();
+          }
+       }
+    }//GEN-LAST:event_txtLongitudKeyTyped
 
     /**
      * @param args the command line arguments
