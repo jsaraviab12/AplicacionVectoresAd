@@ -17,6 +17,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    double v[];
     public Principal() {
         initComponents();
     }
@@ -81,26 +82,46 @@ public class Principal extends javax.swing.JFrame {
                 cmdCrearActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, -1));
+        jPanel3.add(cmdCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 140, -1));
 
         cmdLlenarManual.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdLlenarManual.setText("Llenar Manual");
-        jPanel3.add(cmdLlenarManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, -1));
+        cmdLlenarManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLlenarManualActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdLlenarManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 140, -1));
 
         cmdLlenarAutomatico.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdLlenarAutomatico.setText("Llenar Automatico");
-        jPanel3.add(cmdLlenarAutomatico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, -1));
+        cmdLlenarAutomatico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLlenarAutomaticoActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdLlenarAutomatico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, -1));
 
         cmdMostrar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdMostrar.setText("Mostrar");
-        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 120, -1));
+        cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMostrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 140, -1));
 
         cmdBorrar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 11)); // NOI18N
         cmdBorrar.setForeground(new java.awt.Color(102, 0, 0));
         cmdBorrar.setText("Borrar");
-        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 120, -1));
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 140, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 180));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 170, 180));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultado"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -129,13 +150,18 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearActionPerformed
+       int longitud;
         if (txtLongitud.getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(this, "Digite la longitud","Error",JOptionPane.ERROR_MESSAGE);
             txtLongitud.requestFocusInWindow();
-        }else if (txtLongitud.getText().trim().equals("0")){
+        }else if (Integer.parseInt(txtLongitud.getText().trim())==0){
            JOptionPane.showMessageDialog(this, " La longitud no puede ser 0","Error",JOptionPane.ERROR_MESSAGE); 
             txtLongitud.requestFocusInWindow();
              txtLongitud.selectAll();
+        }else {
+        longitud =  Integer.parseInt(txtLongitud.getText());
+        v = new double[longitud];
+        JOptionPane.showMessageDialog(this, "Vector creado exitosamente");
         }
     }//GEN-LAST:event_cmdCrearActionPerformed
 
@@ -149,6 +175,34 @@ public class Principal extends javax.swing.JFrame {
           }
        }
     }//GEN-LAST:event_txtLongitudKeyTyped
+
+    private void cmdLlenarManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenarManualActionPerformed
+        double n;
+        for ( int i=0; i < v.length;i++){
+        n= Double.parseDouble(JOptionPane.showInputDialog(this,"Digite el elemnto en la posicion"+i));
+        v[i]=n;
+    }
+    }//GEN-LAST:event_cmdLlenarManualActionPerformed
+
+    private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
+        for (int i = 0; i < v.length; i++) {
+            txtResultado.append(v [i]+"\n");
+        }
+    }//GEN-LAST:event_cmdMostrarActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+      txtLongitud.setText("");
+      txtResultado.setText("");
+      v = null;
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void cmdLlenarAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenarAutomaticoActionPerformed
+       int n;
+        for ( int i=0; i < v.length;i++){
+        n = (int)(Math.random()*50 + 1);;
+        v[i]=n;
+    }
+    }//GEN-LAST:event_cmdLlenarAutomaticoActionPerformed
 
     /**
      * @param args the command line arguments
