@@ -20,6 +20,12 @@ public class Principal extends javax.swing.JFrame {
     double v[];
     public Principal() {
         initComponents();
+        cmdCrear.setEnabled(true);
+        cmdLlenarAutomatico.setEnabled(false);
+        cmdLlenarManual.setEnabled(false);
+        cmdMostrar.setEnabled(false);
+        cmdBorrar.setEnabled(true);
+        
     }
 
     /**
@@ -162,6 +168,13 @@ public class Principal extends javax.swing.JFrame {
         longitud =  Integer.parseInt(txtLongitud.getText());
         v = new double[longitud];
         JOptionPane.showMessageDialog(this, "Vector creado exitosamente");
+        cmdCrear.setEnabled(false);
+        cmdLlenarAutomatico.setEnabled(true);
+        cmdLlenarManual.setEnabled(true);
+        cmdMostrar.setEnabled(false);
+        cmdBorrar.setEnabled(true);
+        
+        txtLongitud.setEditable(false);
         }
     }//GEN-LAST:event_cmdCrearActionPerformed
 
@@ -178,22 +191,61 @@ public class Principal extends javax.swing.JFrame {
 
     private void cmdLlenarManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenarManualActionPerformed
         double n;
-        for ( int i=0; i < v.length;i++){
-        n= Double.parseDouble(JOptionPane.showInputDialog(this,"Digite el elemnto en la posicion"+i));
-        v[i]=n;
-    }
+     int sw,res;
+     boolean aux=true;
+        for(int i=0;i<v.length;i++){
+        do{
+            sw=1;
+        try{    
+        n= Double.parseDouble(JOptionPane.showInputDialog(this,"Digite el elemento el la posicion "+i));
+        v[i]= n;
+        
+        }catch(NumberFormatException e){
+        JOptionPane.showMessageDialog(this,"Digite un Numero Valido OK","Error",JOptionPane.ERROR_MESSAGE);
+        sw=0;
+        }catch(NullPointerException e){
+        res=JOptionPane.showConfirmDialog(this,"Seguro que decias salir","Salir",JOptionPane.YES_OPTION);
+        if(res==0){
+        sw=1;
+        i=v.length;
+        aux=false;
+        }else{
+        sw=0;     
+        }
+       
+        }
+        }while(sw==0);
+     cmdCrear.setEnabled(false);
+     cmdLlenarManual.setEnabled(false);
+     cmdLlenarAutomatico.setEnabled(false);
+     cmdMostrar.setEnabled(aux);
+     cmdBorrar.setEnabled(true);
+        }
     }//GEN-LAST:event_cmdLlenarManualActionPerformed
 
     private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
         for (int i = 0; i < v.length; i++) {
             txtResultado.append(v [i]+"\n");
         }
+        cmdCrear.setEnabled(false);
+        cmdLlenarAutomatico.setEnabled(false);
+        cmdLlenarManual.setEnabled(false);
+        cmdMostrar.setEnabled(false);
+        cmdBorrar.setEnabled(true);
     }//GEN-LAST:event_cmdMostrarActionPerformed
 
     private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
       txtLongitud.setText("");
       txtResultado.setText("");
+      txtLongitud.requestFocusInWindow();
       v = null;
+      cmdCrear.setEnabled(true);
+        cmdLlenarAutomatico.setEnabled(false);
+        cmdLlenarManual.setEnabled(false);
+        cmdMostrar.setEnabled(false);
+        cmdBorrar.setEnabled(true);
+        
+        txtLongitud.setEditable(true);
     }//GEN-LAST:event_cmdBorrarActionPerformed
 
     private void cmdLlenarAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenarAutomaticoActionPerformed
@@ -201,7 +253,11 @@ public class Principal extends javax.swing.JFrame {
         for ( int i=0; i < v.length;i++){
         n = (int)(Math.random()*50 + 1);;
         v[i]=n;
-    }
+    }cmdCrear.setEnabled(false);
+        cmdLlenarAutomatico.setEnabled(false);
+        cmdLlenarManual.setEnabled(false);
+        cmdMostrar.setEnabled(false);
+        cmdBorrar.setEnabled(true);
     }//GEN-LAST:event_cmdLlenarAutomaticoActionPerformed
 
     /**
